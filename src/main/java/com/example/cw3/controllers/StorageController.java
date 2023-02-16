@@ -32,12 +32,12 @@ public class StorageController {
     @PostMapping
     @Operation(summary = "Добавление носков на склад", description = "Можно добавить носки на склад по параметрам")
     public ResponseEntity<Long> addSocks(@RequestParam Color color, @RequestParam Size size,
-                                         @RequestParam int cottonPart, @RequestParam Long count) {
-        if (cottonPart < 0 || cottonPart > 100 || count < 0) {
+                                         @RequestParam int cottonPart, @RequestParam Long quantity) {
+        if (cottonPart < 0 || cottonPart > 100 || quantity < 0) {
             return ResponseEntity.notFound().build();
         } else {
-            storageServices.addSocks(new Socks(color, size, cottonPart), count);
-            return ResponseEntity.ok(count);
+            storageServices.addSocks(new Socks(color, size, cottonPart), quantity);
+            return ResponseEntity.ok(quantity);
         }
     }
 
@@ -46,16 +46,13 @@ public class StorageController {
             description = "Можно отправить носки со склада")
     public ResponseEntity<Long> sendSocks(@RequestParam Color color, @RequestParam Size size,
                                           @RequestParam int cottonPart, @RequestParam Long count) {
-        if (count < 0) {
+        if (!storageServices.sendSocks(new Socks(color, size, cottonPart), count)) {
             return ResponseEntity.notFound().build();
-        } else {
-            Long a = storageServices.sendSocks(new Socks(color, size, cottonPart), count);
-            if (a == 0L) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(count);
         }
+        return ResponseEntity.ok(count);
     }
+
+
 
     @DeleteMapping
     @Operation(summary = "Удаление носков со склада без остатка",

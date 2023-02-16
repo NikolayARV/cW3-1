@@ -16,6 +16,9 @@ public class Socks {
     private Color color;
     private Size size;
     private int cottonPart;
+    private Long quantity;
+
+
 
 
 
@@ -23,6 +26,7 @@ public class Socks {
         this.color = color;
         this.size = size;
         this.cottonPart = cottonPart;
+
 
     }
 

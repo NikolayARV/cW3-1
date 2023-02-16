@@ -1,1 +1,14 @@
-{"Socks(color=RED, size=XS, cottonPart=0)":20,"Socks(color=WHITE, size=XS, cottonPart=0)":10}
+{
+  "2": {
+    "color": "RED",
+    "size": "XS",
+    "cottonPart": 0,
+    "quantity": 150
+  },
+  "5": {
+    "color": "WHITE",
+    "size": "M",
+    "cottonPart": 30,
+    "quantity": 150
+  }
+}

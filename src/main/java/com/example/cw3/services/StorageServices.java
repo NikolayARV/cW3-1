@@ -14,7 +14,7 @@ public interface StorageServices {
 
 
 
-    Long sendSocks(Socks socks1, Long count);
+    boolean sendSocks(Socks socks1, Long count);
 
     Long getSocksCount(Socks socks1);
 

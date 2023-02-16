@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -20,7 +21,7 @@ public class FileServiceImpl implements FileService {
     public boolean saveToFile(String json) {
         try {
             cleanDataFile();
-            Files.writeString(Path.of(dataFilePath, dataFileName), json);
+           Files.writeString(Path.of(dataFilePath, dataFileName), json);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,6 +32,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public String readFromFile() {
         try {
+
             return Files.readString(Path.of(dataFilePath, dataFileName));
         } catch (IOException e) {
             e.printStackTrace();
