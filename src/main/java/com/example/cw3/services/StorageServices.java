@@ -14,12 +14,17 @@ public interface StorageServices {
 
 
 
+
     boolean sendSocks(Socks socks1, Long count);
 
     Long getSocksCount(Socks socks1);
 
 
     boolean deleteSocks(Socks socks);
+
+
+
+    void readFromFile();
 
     Path getSocksMap() throws IOException;
 }

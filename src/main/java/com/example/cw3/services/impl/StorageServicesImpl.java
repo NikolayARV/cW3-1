@@ -94,7 +94,7 @@ public class StorageServicesImpl implements StorageServices {
 
     private boolean cutSocks(Socks socks1, Long count) {
         for (Socks socks : socksStorage.values()) {
-            if (socks1.equals(socks) && socks.getQuantity() >= count && count>=0) {
+            if (socks1.equals(socks) && socks.getQuantity() >= count && count >= 0) {
                 Long c = socks.getQuantity() - count;
                 socks.setQuantity(c);
                 saveToFile();
@@ -134,7 +134,8 @@ public class StorageServicesImpl implements StorageServices {
         return false;
     }
 
-    private void saveToFile() {
+
+    public void saveToFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(socksStorage);
             fileService.saveToFile(json);
@@ -142,8 +143,8 @@ public class StorageServicesImpl implements StorageServices {
             throw new RuntimeException();
         }
     }
-
-    private void readFromFile() {
+@Override
+    public void readFromFile() {
         try {
             String json = fileService.readFromFile();
             socksStorage = new ObjectMapper().readValue(json, new TypeReference<HashMap<Long, Socks>>() {

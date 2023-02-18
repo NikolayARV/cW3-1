@@ -1,6 +1,7 @@
 package com.example.cw3.controllers;
 
 import com.example.cw3.services.FileService;
+import com.example.cw3.services.StorageServices;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -16,9 +17,12 @@ import java.io.*;
 @RequestMapping("/files")
 public class FilesController {
     private final FileService fileService;
+    private final StorageServices storageServices;
 
-    public FilesController(FileService fileService) {
+    public FilesController(FileService fileService, StorageServices storageServices) {
         this.fileService = fileService;
+
+        this.storageServices = storageServices;
     }
 
     @GetMapping(value = "/export")
@@ -42,7 +46,10 @@ public class FilesController {
         File dataFile = fileService.getDataFile();
         try (FileOutputStream fos = new FileOutputStream(dataFile)) {
             IOUtils.copy(file.getInputStream(), fos);
+
+            storageServices.readFromFile();
             return ResponseEntity.ok().build();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
